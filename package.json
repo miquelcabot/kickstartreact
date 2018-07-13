@@ -1,0 +1,43 @@
+{
+  "name": "kickstartreact",
+  "version": "0.1.0",
+  "description": "",
+  "homepage": "http://www.miquelcabot.com/kickstart",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "ethereum_compile": "node ./ethereum/compile.js",
+    "ethereum_deploy": "node ./ethereum/deploy.js",
+    "ethereum_test": "mocha",
+    "dev": "node server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "ethereum",
+    "solidity",
+    "blockchain"
+  ],
+  "author": "Seguretat i comerç electrònic (SECOM)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^6.0.1",
+    "ganache-cli": "^6.0.3",
+    "mocha": "^5.0.1",
+    "solc": "^0.4.20",
+    "truffle-hdwallet-provider": "0.0.3",
+    "web3": "^1.0.0-beta.26",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
+    "semantic-ui-react": "^0.81.3",
+    "gh-pages": "^1.2.0"
+  }
+}
