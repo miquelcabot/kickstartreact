@@ -1,21 +1,68 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Card, Button, Dimmer, Loader, Segment } from 'semantic-ui-react';
+import factory from './ethereum/factory';
+import Layout from './components/Layout';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    state = {
+        loadingPage: true,
+        errorMessage: '',
+        loading: false
+    };
+
+    componentDidMount = async () => {
+        const campaigns = await factory.methods.getDeployedCampaigns().call();
+        
+        this.setState({ loadingPage: false, campaigns: campaigns })
+    }
+
+    renderCampaigns() {
+        if (!this.state.loadingPage) {
+            const items = this.state.campaigns.map( address => {
+                return {
+                    header: address,
+                    description: (
+                      
+                            <a>View Campaign</a>
+                      
+                    ),
+                    fluid: true
+                }
+            });
+            return <Card.Group items={items} />;
+        }
+    }
+
+    render() {
+        // Loading
+        if (this.state.loadingPage) return (
+            <Layout>
+                <div>
+                    <Segment style={{ height: '80vh' }}>
+                        <Dimmer active inverted>
+                            <Loader inverted content='Loading...' />
+                        </Dimmer>
+                    </Segment>
+                </div>
+            </Layout>
+        );
+      
+        // Done
+        return (
+            <Layout>
+                <div>
+                    <h3>Open Campaigns</h3>
+                    <Button 
+                        floated="right"
+                        content = "Create Campaign"
+                        icon = "add circle"
+                        primary = {true}
+                        />
+                </div>
+                { this.renderCampaigns() }
+            </Layout>
+        );
+    }
 }
 
 export default App;
