@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Message, Button } from 'semantic-ui-react';
+import { withRouter } from "react-router-dom";
 import Campaign from '../ethereum/campaign';
 import web3 from '../ethereum/web3';
 
@@ -25,7 +26,8 @@ class ContributeForm extends Component {
                     value: web3.utils.toWei(this.state.value, 'ether')
                 });
             
-            //Router.replaceRoute(`/campaigns/${this.props.address}`);
+            // Refresh, using withRouter
+            this.props.history.go(0);
         } catch (err) {
             this.setState( { errorMessage: err.message } );
         }
@@ -57,4 +59,4 @@ class ContributeForm extends Component {
     }
 }
 
-export default ContributeForm;
+export default withRouter(ContributeForm);
